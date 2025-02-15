@@ -1,0 +1,334 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: #f0f0f0;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    text-align: center;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+h1 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.game-container {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+    margin: 20px auto;
+    max-width: 800px;
+    min-height: 400px;
+    justify-content: center;
+    justify-items: center;
+}
+
+.card {
+    width: 150px;
+    height: 150px;
+    background: #2196F3;
+    border-radius: 5px;
+    cursor: pointer;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.5s, opacity 0.5s ease-out;
+    opacity: 1;
+    margin: 0 auto;
+}
+
+.card-face {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card-front {
+    background-size: cover;
+    background-position: center;
+    transform: rotateY(180deg);
+}
+
+.card-back {
+    background: #2196F3;
+    font-size: 2em;
+    color: white;
+}
+
+.card.flipped {
+    transform: rotateY(180deg);
+}
+
+.score {
+    margin-top: 20px;
+    font-size: 1.2em;
+    color: #333;
+}
+
+.success-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(255, 255, 255, 0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    animation: fadeInOut 3s ease-in-out;
+}
+
+.success-overlay img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    max-width: 100vw;  /* Ekran genişliğini aşmasın */
+    max-height: 100vh; /* Ekran yüksekliğini aşmasın */
+}
+
+@keyframes fadeInOut {
+    0% { opacity: 0; }
+    15% { opacity: 1; }
+    85% { opacity: 1; }
+    100% { opacity: 0; }
+}
+
+@media (max-width: 600px) {
+    .game-container {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 5px;
+        margin: 10px auto;
+        padding: 0 10px;
+    }
+
+    h1 {
+        font-size: 1.5em;
+    }
+
+    .card {
+        width: 120px;
+        height: 120px;
+    }
+
+    .success-overlay img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+}
+
+/* Resim görüntüleme için yeni stiller */
+.full-image-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.full-image-container {
+    position: relative;
+    width: 80%;
+    height: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.full-image-container img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.nav-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: none;
+    padding: 20px;
+    cursor: pointer;
+    font-size: 24px;
+    border-radius: 50%;
+    transition: background 0.3s;
+    z-index: 1001;
+}
+
+.nav-button:hover {
+    background: rgba(255, 255, 255, 0.4);
+}
+
+.prev-button {
+    left: 20px;
+}
+
+.next-button {
+    right: 20px;
+}
+
+.close-button {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 24px;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1001;
+}
+
+#snakeContainer {
+    max-width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    gap: 10px;
+}
+
+.snake-heads {
+    display: flex;
+    justify-content: center;
+    gap: 100px;
+    width: 100%;
+    max-width: 400px;
+    padding: 10px;
+}
+
+.head-image {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 2px solid #2196F3;
+}
+
+#snakeCanvas {
+    border: 2px solid #2196F3;
+    border-radius: 5px;
+    margin: 10px 0;
+    display: block;
+    background: white;
+}
+
+.score {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    margin: 10px 0;
+}
+
+.control-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    margin: 10px 0;
+}
+
+.horizontal-buttons {
+    display: flex;
+    gap: 50px;
+}
+
+.control-btn {
+    width: 60px;
+    height: 60px;
+    border: none;
+    border-radius: 50%;
+    background: #2196F3;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.control-btn:active {
+    background: #1976D2;
+    transform: scale(0.95);
+}
+
+@media (max-height: 600px) {
+    #snakeContainer {
+        gap: 5px;
+    }
+
+    .snake-heads {
+        gap: 50px;
+        padding: 5px;
+    }
+
+    .head-image {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .control-btn {
+        width: 45px;
+        height: 45px;
+        font-size: 20px;
+    }
+    
+    .horizontal-buttons {
+        gap: 30px;
+    }
+    
+    h1 {
+        font-size: 1.2em;
+        margin: 5px 0;
+    }
+
+    .score {
+        font-size: 20px;
+        margin: 5px 0;
+    }
+
+    .control-buttons {
+        gap: 10px;
+        margin: 5px 0;
+    }
+}
+
+@media (min-width: 769px) {
+    .control-buttons {
+        display: none;
+    }
+} 

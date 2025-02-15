@@ -1,0 +1,16 @@
+{
+    "name": "Eşleştirme Kart Oyunu",
+    "short_name": "Kart Oyunu",
+    "start_url": ".",
+    "display": "standalone",
+    "orientation": "any",
+    "background_color": "#f0f0f0",
+    "theme_color": "#f0f0f0",
+    "description": "Eğlenceli bir kart eşleştirme oyunu",
+    "icons": [{
+        "src": "icon.png",
+        "sizes": "192x192",
+        "type": "image/png",
+        "purpose": "any maskable"
+    }]
+} 
